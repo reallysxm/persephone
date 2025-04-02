@@ -1,11 +1,18 @@
-import "dotenv/config";
 import eventHandler from "./handlers/event-handler.js";
 import { Client } from "discord.js-selfbot-v13";
 import { commandHandler } from "./handlers/command-handler.js";
 
 const client: Client = new Client();
 
-await eventHandler(client);
-await commandHandler(client);
+try {
+  const {
+    default: { token },
+  } = await import("../config.json", { assert: { type: "json" } });
 
-client.login(process.env.TOKEN);
+  await eventHandler(client);
+  await commandHandler(client);
+
+  client.login(token);
+} catch (error) {
+  console.error("Failed to load the config file or token is missing:", error);
+}

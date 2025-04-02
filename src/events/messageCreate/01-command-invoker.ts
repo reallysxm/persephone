@@ -1,15 +1,41 @@
 import { Client, Message } from "discord.js-selfbot-v13";
 import { executeCommand } from "../../handlers/command-handler.js";
 
-const PREFIX = "!"; // Set your command prefix
+const configFilePath: string = "../../../config.json";
+let PREFIX: string[] = ["!"];
 
-export default function commandInvoker(client: Client, message: Message) {
+export default async function commandInvoker(client: Client, message: Message) {
   if (message.author.id !== client.user?.id) return;
-  if (!message.content.startsWith(process.env.PREFIX || PREFIX)) return;
 
-  const args = message.content.slice(PREFIX.length).trim().split(/\s+/);
-  const commandName = args.shift()?.toLowerCase();
+  try {
+    const {
+      default: { prefix, noPrefix },
+    } = await import(configFilePath, { assert: { type: "json" } });
 
-  if (!commandName) return;
-  executeCommand(client, commandName, message, args);
+    PREFIX = prefix.every((__prefix: string) => __prefix.trim() === "")
+      ? PREFIX
+      : prefix;
+
+    if (!noPrefix && !PREFIX.some((p) => message.content.startsWith(p))) return;
+
+    const contentWithoutPrefix = noPrefix
+      ? message.content.trim()
+      : PREFIX.find((p) => message.content.startsWith(p))
+      ? message.content
+          .slice(PREFIX.find((p) => message.content.startsWith(p))!.length)
+          .trim()
+      : "";
+
+    const args = contentWithoutPrefix.split(/\s+/);
+    const commandName = args.shift()?.toLowerCase();
+
+    if (!commandName) return;
+
+    executeCommand(client, commandName, message, args);
+  } catch (error) {
+    console.error(
+      "Failed to load the config file or prefix is missing:",
+      error
+    );
+  }
 }

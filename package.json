@@ -1,7 +1,7 @@
 {
   "name": "persephone",
   "version": "1.0.0",
-  "description": "A simple yet powerfull discord-selfbot.",
+  "description": "A simple yet powerfull discord-selfbot",
   "main": "src/index.ts",
   "type": "module",
   "scripts": {

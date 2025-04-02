@@ -1,0 +1,30 @@
+{
+  "name": "persephone",
+  "version": "1.0.0",
+  "description": "A simple yet powerfull discord-selfbot.",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "test": "npx tsx ./src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reallysxm/persephone.git"
+  },
+  "author": "reallysxm https://github.com/reallysxm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reallysxm/persephone/issues"
+  },
+  "homepage": "https://github.com/reallysxm/persephone#readme",
+  "devDependencies": {
+    "@types/node": "^22.13.17",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "discord.js-selfbot-v13": "github:aiko-chan-ai/discord.js-selfbot-v13",
+    "dotenv": "^16.4.7"
+  }
+}

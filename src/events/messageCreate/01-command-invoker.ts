@@ -1,5 +1,5 @@
 import { Client, Message } from "discord.js-selfbot-v13";
-import { executeCommand } from "../../handlers/command-handler.js";
+import executeCommand from "../../utilities/execute-commands.js";
 
 const configFilePath: string = "../../../config.json";
 let PREFIX: string[] = ["!"];

@@ -1,4 +1,6 @@
 import path from "path";
+import chalk from "chalk";
+import centerText from "../utilities/center-text.js";
 import fetchAllFiles from "../utilities/fetch-all-files.js";
 import { fileURLToPath } from "url";
 import { Client } from "discord.js-selfbot-v13";
@@ -8,6 +10,9 @@ const __dirname = fileURLToPath(new URL(".", import.meta.url));
 export default async function loadEvents(client: Client) {
   const eventsPath = path.resolve(__dirname, "..", "events");
   const eventDirs = fetchAllFiles(eventsPath, 1);
+
+  console.log(centerText("LOADING EVENTS", process.stdout.columns, "-"));
+  console.log("");
 
   for (const dir of eventDirs) {
     let eventFiles = fetchAllFiles(dir.url, 0);
@@ -26,8 +31,16 @@ export default async function loadEvents(client: Client) {
 
       if (eventModule.default) {
         client.on(eventName, eventModule.default.bind(null, client));
-        console.log(`Loaded event: ${eventName} -> ${file.name}`);
+        console.log(
+          chalk.green(`Loaded event: `) +
+            chalk.blue(`${eventName} `) +
+            "-> " +
+            chalk.red(file.name)
+        );
       }
     }
   }
+
+  console.log("");
+  console.log(centerText("< / >", process.stdout.columns, "-"));
 }

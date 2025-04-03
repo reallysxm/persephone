@@ -1,4 +1,6 @@
 import path from "path";
+import chalk from "chalk";
+import centerText from "../utilities/center-text.js";
 import fetchAllFiles from "../utilities/fetch-all-files.js";
 import { Collection, Client, Message } from "discord.js-selfbot-v13";
 import { fileURLToPath } from "url";
@@ -6,9 +8,13 @@ import { fileURLToPath } from "url";
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const commands = new Collection<string, any>();
 
-export async function commandHandler(client: Client) {
+export default async function commandHandler(client: Client) {
   const commandsPath = path.resolve(__dirname, "..", "commands");
   const commandCategories = fetchAllFiles(commandsPath, 1);
+
+  console.log("");
+  console.log(centerText("LOADING COMMANDS", process.stdout.columns, "-"));
+  console.log("");
 
   for (const category of commandCategories) {
     const commandFiles = fetchAllFiles(category.url, 0);
@@ -19,20 +25,19 @@ export async function commandHandler(client: Client) {
       const commandModule = await import(`file://${path.resolve(file.url)}`);
       if (commandModule.default?.name) {
         commands.set(commandModule.default.name, commandModule.default);
-        console.log(`Loaded command: ${commandModule.default.name}`);
+        console.log(
+          chalk.green("Loaded command: ") +
+            chalk.blue(`${category.name} `) +
+            "-> " +
+            chalk.red(file.name)
+        );
       }
     }
   }
+
+  console.log("");
+  console.log(centerText("< / >", process.stdout.columns, "-"));
+  console.log("");
 }
 
-export function executeCommand(
-  client: Client,
-  commandName: string,
-  message: Message,
-  ...args: any[]
-) {
-  const command = commands.get(commandName);
-  if (command) {
-    return command.execute(client, message, ...args);
-  } else return;
-}
+export { commands };

@@ -1,6 +1,6 @@
-import eventHandler from "./handlers/event-handler.js";
+import eventHandler from "./handlers/events-handler.js";
 import { Client } from "discord.js-selfbot-v13";
-import { commandHandler } from "./handlers/command-handler.js";
+import commandHandler from "./handlers/commands-handler.js";
 
 const client: Client = new Client();
 
@@ -11,7 +11,6 @@ try {
 
   await eventHandler(client);
   await commandHandler(client);
-
   client.login(token);
 } catch (error) {
   console.error("Failed to load the config file or token is missing:", error);

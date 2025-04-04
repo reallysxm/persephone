@@ -3,13 +3,11 @@ import chalk from "chalk";
 import centerText from "../utilities/center-text.js";
 import fetchAllFiles from "../utilities/fetch-all-files.js";
 import { Collection, Client, Message } from "discord.js-selfbot-v13";
-import { fileURLToPath } from "url";
 
-const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const commands = new Collection<string, any>();
 
 export default async function commandHandler(client: Client) {
-  const commandsPath = path.resolve(__dirname, "..", "commands");
+  const commandsPath = path.resolve(import.meta.dirname, "..", "commands");
   const commandCategories = fetchAllFiles(commandsPath, 1);
 
   console.log("");

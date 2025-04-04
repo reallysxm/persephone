@@ -1,16 +1,22 @@
-import { Client, Message } from "discord.js-selfbot-v13";
+import path from "path";
+import loadJson from "../../utilities/load-json.js";
 import executeCommand from "../../utilities/execute-commands.js";
+import { Client, Message } from "discord.js-selfbot-v13";
 
-const configFilePath: string = "../../../config.json";
+const configFilePath: string = "../../config.json"; //Add the relative path to your config file here
 let PREFIX: string[] = ["!"];
 
 export default async function commandInvoker(client: Client, message: Message) {
   if (message.author.id !== client.user?.id) return;
 
   try {
-    const {
-      default: { prefix, noPrefix },
-    } = await import(configFilePath, { assert: { type: "json" } });
+    const { prefix, noPrefix } = await loadJson<{
+      prefix: string[];
+      noPrefix: boolean;
+    }>(
+      path.resolve(import.meta.dirname, configFilePath),
+      new URL(import.meta.url)
+    );
 
     PREFIX = prefix.every((__prefix: string) => __prefix.trim() === "")
       ? PREFIX

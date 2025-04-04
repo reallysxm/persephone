@@ -2,13 +2,10 @@ import path from "path";
 import chalk from "chalk";
 import centerText from "../utilities/center-text.js";
 import fetchAllFiles from "../utilities/fetch-all-files.js";
-import { fileURLToPath } from "url";
 import { Client } from "discord.js-selfbot-v13";
 
-const __dirname = fileURLToPath(new URL(".", import.meta.url));
-
 export default async function loadEvents(client: Client) {
-  const eventsPath = path.resolve(__dirname, "..", "events");
+  const eventsPath = path.resolve(import.meta.dirname, "..", "events");
   const eventDirs = fetchAllFiles(eventsPath, 1);
 
   console.log(centerText("LOADING EVENTS", process.stdout.columns, "-"));

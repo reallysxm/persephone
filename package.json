@@ -2,7 +2,7 @@
   "name": "persephone",
   "version": "1.0.0",
   "description": "A simple yet powerfull discord-selfbot",
-  "main": "src/index.ts",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "build": "tsc",

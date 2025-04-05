@@ -6,6 +6,9 @@ export default {
   usage: "<prefix>ping",
   execute(client: Client, message: Message) {
     const latency = Date.now() - message.createdTimestamp;
-    message.reply(`Pong! 🏓 Latency is ${latency}ms`);
+    const apiLatency = Math.round(client.ws.ping);
+    message.reply(
+      `< / > | Latency: ${latency}ms\n< / > | API Latency: ${apiLatency}ms`
+    );
   },
 };

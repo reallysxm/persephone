@@ -5,8 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "tsc",
-    "test": "npx tsx ./src/index.ts"
+    "start": "node ."
   },
   "repository": {
     "type": "git",
@@ -18,11 +17,6 @@
     "url": "https://github.com/reallysxm/persephone/issues"
   },
   "homepage": "https://github.com/reallysxm/persephone#readme",
-  "devDependencies": {
-    "@types/node": "^22.13.17",
-    "tsx": "^4.19.3",
-    "typescript": "^5.8.2"
-  },
   "dependencies": {
     "chalk": "^5.4.1",
     "discord.js-selfbot-v13": "github:aiko-chan-ai/discord.js-selfbot-v13"

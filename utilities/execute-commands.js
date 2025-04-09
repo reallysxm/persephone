@@ -13,14 +13,13 @@ export default async function executeCommand(client, commandName, message, ...ar
     const command = commands.get(commandName);
     if (command) {
         try {
-            const configFilePath = "../config.json";
-            const { anonymousCommands } = await loadJson(path.resolve(import.meta.dirname, configFilePath), new URL(import.meta.url));
-            if (!anonymousCommands)
+            const configFilePath = path.resolve(import.meta.dirname, "../config.json"); //Add the relative path to your config file here
+            const { deleteCommandMessage } = await loadJson(configFilePath, new URL(import.meta.url));
+            if (!deleteCommandMessage)
                 return command.execute(client, message, ...args);
             if (message.deletable) {
-                command.execute(client, message, ...args);
-                await new Promise((resolve) => setTimeout(resolve, 1));
                 await message.delete();
+                return command.execute(client, message, ...args);
             }
         }
         catch (error) {

@@ -1,12 +1,12 @@
 import path from "path";
 import loadJson from "../../utilities/load-json.js";
 import executeCommand from "../../utilities/execute-commands.js";
-const configFilePath = "../../config.json"; //Add the relative path to your config file here
 let PREFIX = ["!"];
 export default async function commandInvoker(client, message) {
     if (message.author.id !== client.user?.id)
         return;
     try {
+        const configFilePath = "../../config.json"; //Add the relative path to your config file here
         const { prefix, noPrefix } = await loadJson(path.resolve(import.meta.dirname, configFilePath), new URL(import.meta.url));
         PREFIX = prefix.every((__prefix) => __prefix.trim() === "")
             ? PREFIX

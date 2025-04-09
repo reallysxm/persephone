@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs/promises";
-import loadJson from "../../utilities/load-json";
+import loadJson from "../../utilities/load-json.js";
 export default {
     name: "delete-command-message",
     description: "Toggle no-command message mode",

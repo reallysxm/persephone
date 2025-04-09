@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs/promises";
-import loadJson from "../../utilities/load-json";
+import loadJson from "../../utilities/load-json.js";
 export default {
     name: "no-prefix",
     description: "Toggle no-prefix mode",

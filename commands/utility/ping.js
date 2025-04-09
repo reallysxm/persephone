@@ -1,5 +1,5 @@
 import path from "path";
-import loadJson from "../../utilities/load-json";
+import loadJson from "../../utilities/load-json.js";
 export default {
     name: "ping",
     description: "Check the bot's latency",

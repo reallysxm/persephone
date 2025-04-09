@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs/promises";
-import loadJson from "../../utilities/load-json";
+import loadJson from "../../utilities/load-json.js";
 import { Client, Message } from "discord.js-selfbot-v13";
 
 export default {

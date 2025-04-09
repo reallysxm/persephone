@@ -1,39 +1,47 @@
 import path from "path";
+import fs from "fs/promises";
 import loadJson from "../../utilities/load-json";
 import { Client, Message } from "discord.js-selfbot-v13";
 
 export default {
-  name: "ping",
-  description: "Check the bot's latency",
+  name: "no-prefix",
+  description: "Toggle no-prefix mode",
   usage: "<prefix>ping",
   async execute(client: Client, message: Message) {
     const configFilePath: string = path.resolve(
       import.meta.dirname,
       "../../config.json"
-    );
+    ); //Add the relative path to your config file here
 
     try {
-      const latency = Date.now() - message.createdTimestamp;
-      const apiLatency = Math.round(client.ws.ping);
-      const { deleteCommandMessage } = await loadJson<{
+      const config = await loadJson<{
         deleteCommandMessage: boolean;
+        noPrefix: boolean;
       }>(
         path.resolve(import.meta.dirname, configFilePath),
         new URL(import.meta.url)
       );
 
-      if (deleteCommandMessage) {
+      config.noPrefix = !config.noPrefix;
+
+      await fs.writeFile(
+        configFilePath,
+        JSON.stringify(config, null, 2),
+        "utf-8"
+      );
+
+      if (config.deleteCommandMessage) {
         return await message.channel.send(
-          `< / > | Latency: ${latency}ms\n< / > | API Latency: ${apiLatency}ms`
+          `< / > | No prefix mode: ${config.noPrefix ? "ENABLED" : "DISABLED"}`
         );
       } else {
         return await message.reply(
-          `< / > | Latency: ${latency}ms\n< / > | API Latency: ${apiLatency}ms`
+          `< / > | No prefix mode: ${config.noPrefix ? "ENABLED" : "DISABLED"}`
         );
       }
     } catch (error) {
       console.log(
-        "Failed to load the config file or deleteCommandMessage is missing:",
+        "Failed to load the config file or deleteCommandMessage or noPrefix is missing:",
         error
       );
     }

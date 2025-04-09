@@ -5,11 +5,11 @@ import commandHandler from "./handlers/commands-handler.js";
 import { Client } from "discord.js-selfbot-v13";
 
 const client: Client = new Client();
-const configFilePath = "config.json";
+const configFilePath: string = path.resolve(import.meta.dirname, "config.json"); //Add the relative path to your config file here
 
 try {
   const { token } = await loadJson<{ token: string }>(
-    path.resolve(import.meta.dirname, configFilePath),
+    configFilePath,
     new URL(import.meta.url)
   );
   await eventHandler(client);

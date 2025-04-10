@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
+    "postbuild": "tsc-esm-fix ./dist",
     "test": "npx tsx ./src/index.ts"
   },
   "repository": {
@@ -19,12 +20,15 @@
   },
   "homepage": "https://github.com/reallysxm/persephone#readme",
   "devDependencies": {
+    "@types/exaroton": "^1.11.1",
     "@types/node": "^22.13.17",
+    "tsc-esm-fix": "^3.1.2",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"
   },
   "dependencies": {
     "chalk": "^5.4.1",
-    "discord.js-selfbot-v13": "github:aiko-chan-ai/discord.js-selfbot-v13"
+    "discord.js-selfbot-v13": "github:aiko-chan-ai/discord.js-selfbot-v13",
+    "exaroton": "^1.11.3"
   }
 }

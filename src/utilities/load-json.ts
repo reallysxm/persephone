@@ -12,8 +12,8 @@ export default async function loadJson<T extends Record<string, unknown>>(
   configPath: string,
   baseUrl: URL
 ): Promise<T> {
-  const __dirname = dirname(fileURLToPath(baseUrl));
-  const fullPath = resolve(__dirname, configPath);
+  const dirname__ = dirname(fileURLToPath(baseUrl));
+  const fullPath = resolve(dirname__, configPath);
   const raw = await readFile(fullPath, "utf-8");
   return JSON.parse(raw) as T;
 }

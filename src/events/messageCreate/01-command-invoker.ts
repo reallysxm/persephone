@@ -1,6 +1,6 @@
 import path from "path";
-import loadJson from "../../utilities/load-json.js";
-import executeCommand from "../../utilities/execute-commands.js";
+import loadJson from "../../utilities/load-json";
+import executeCommand from "../../utilities/execute-commands";
 import { Client, Message } from "discord.js-selfbot-v13";
 
 let PREFIX: string[] = ["!"];

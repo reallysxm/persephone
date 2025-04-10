@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import centerText from "../../utilities/center-text.js";
+import centerText from "../../utilities/center-text";
 import { Client } from "discord.js-selfbot-v13";
 
 export default function readyHandler(client: Client) {

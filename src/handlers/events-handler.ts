@@ -1,7 +1,7 @@
 import path from "path";
 import chalk from "chalk";
-import centerText from "../utilities/center-text.js";
-import fetchAllFiles from "../utilities/fetch-all-files.js";
+import centerText from "../utilities/center-text";
+import fetchAllFiles from "../utilities/fetch-all-files";
 import { Client } from "discord.js-selfbot-v13";
 
 export default async function loadEvents(client: Client) {

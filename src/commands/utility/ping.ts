@@ -1,5 +1,5 @@
 import path from "path";
-import loadJson from "../../utilities/load-json.js";
+import loadJson from "../../utilities/load-json";
 import { Client, Message } from "discord.js-selfbot-v13";
 
 export default {

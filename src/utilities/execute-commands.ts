@@ -1,7 +1,7 @@
 import path from "path";
-import loadJson from "../utilities/load-json.js";
+import loadJson from "../utilities/load-json";
 import { Client, Message } from "discord.js-selfbot-v13";
-import { commands } from "../handlers/commands-handler.js";
+import { commands } from "../handlers/commands-handler";
 
 /**
  * Executes a command by its name.

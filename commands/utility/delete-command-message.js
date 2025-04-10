@@ -5,6 +5,9 @@ export default {
     name: "delete-command-message",
     description: "Toggle no-command message mode",
     usage: "<prefix>delete-command-message",
+    subCommands: {},
+    minArgs: 0,
+    MaxArgs: 0,
     async execute(client, message) {
         const configFilePath = path.resolve(import.meta.dirname, "../../config.json"); //Add the relative path to your config file here
         try {

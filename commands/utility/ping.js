@@ -4,6 +4,9 @@ export default {
     name: "ping",
     description: "Check the bot's latency",
     usage: "<prefix>ping",
+    subCommands: {},
+    minArgs: 0,
+    maxArgs: 0,
     async execute(client, message) {
         const configFilePath = path.resolve(import.meta.dirname, "../../config.json");
         try {

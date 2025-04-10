@@ -1,22 +1,32 @@
 import path from "path";
 import loadJson from "./utilities/load-json.js";
+import eventHandler from "./handlers/events-handler.js";
+import commandHandler from "./handlers/commands-handler.js";
 import { Client as DiscordClient } from "discord.js-selfbot-v13";
+import { Client as ExarotonClient } from "exaroton";
 const discordClient = new DiscordClient();
 const configFilePath = path.resolve(import.meta.dirname, "config.json"); //Add the relative path to your config file here
-const main = async () => {
+let exarotonClient = null;
+(async () => {
     try {
-        const { token } = await loadJson(configFilePath, new URL(import.meta.url));
-        if (!token || token.length === 0) {
-        }
+        const { discordToken } = await loadJson(configFilePath, new URL(import.meta.url));
+        if (!discordToken || discordToken.length === 0)
+            return console.log("Discord token not set in config.json, Safely exiting...");
+        await commandHandler(discordClient);
+        await eventHandler(discordClient);
+        await discordClient.login(discordToken);
     }
     catch (error) {
         console.error("Failed to load the config file or token is missing:", error);
     }
     try {
-        const { exarotonApiKey } = await loadJson(configFilePath, new URL(import.meta.url));
-        console.log(exarotonApiKey);
+        const { exarotonToken } = await loadJson(configFilePath, new URL(import.meta.url));
+        if (!exarotonToken || exarotonToken.length === 0)
+            return console.log("Exaroton token not set in config.json, Exaroton client will not be initialized...");
+        exarotonClient = new ExarotonClient(exarotonToken);
     }
     catch (error) {
         console.error("Failed to load the config file or exarotonApiKey is missing:", error);
     }
-};
+})();
+export { exarotonClient };

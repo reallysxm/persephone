@@ -5,6 +5,9 @@ export default {
     name: "no-prefix",
     description: "Toggle no-prefix mode",
     usage: "<prefix>ping",
+    subCommands: {},
+    minArgs: 0,
+    maxArgs: 0,
     async execute(client, message) {
         const configFilePath = path.resolve(import.meta.dirname, "../../config.json"); //Add the relative path to your config file here
         try {

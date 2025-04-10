@@ -4,11 +4,14 @@ export default {
     name: "exaroton-account",
     description: "Get Exaroton account information",
     usage: "<prefix>exaroton-account",
-    async execute(client, message) {
+    subCommands: {},
+    minArgs: 1,
+    maxArgs: 0,
+    async execute(client, message, args) {
         try {
             const configFilePath = path.resolve(import.meta.dirname, "../../config.json");
             const URI = "https://api.exaroton.com/v1/account/";
-            const { exarotonApiKey, deleteCommandMessage } = await loadJson(configFilePath, new URL(import.meta.url));
+            const { exarotonApiKey, deleteCommandMessage, strictMode } = await loadJson(configFilePath, new URL(import.meta.url));
             const res = await fetch(URI, {
                 method: "GET",
                 headers: {

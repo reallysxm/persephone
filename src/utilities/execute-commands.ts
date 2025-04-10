@@ -11,6 +11,9 @@ import { commands } from "../handlers/commands-handler";
  * @param message - The Discord message object triggering the command.
  * @param args - Additional arguments to pass to the command.
  */
+
+const configFilePath = path.resolve(import.meta.dirname, "../config.json"); //Add the relative path to your config file here
+
 export default async function executeCommand(
   client: Client,
   commandName: string,
@@ -20,13 +23,35 @@ export default async function executeCommand(
   const command = commands.get(commandName);
   if (command) {
     try {
-      const configFilePath = path.resolve(
-        import.meta.dirname,
-        "../config.json"
-      ); //Add the relative path to your config file here
       const { deleteCommandMessage } = await loadJson<{
-        deleteCommandMessage: string;
+        deleteCommandMessage: boolean;
       }>(configFilePath, new URL(import.meta.url));
+
+      try {
+        const { strictMode } = await loadJson<{ strictMode: boolean }>(
+          configFilePath,
+          new URL(import.meta.url)
+        );
+        if (
+          (strictMode && args[0].length < command.minArgs) ||
+          args[0].length > command.maxArgs
+        ) {
+          if (deleteCommandMessage)
+            return await message.delete().then(() => {
+              message.channel.send(
+                `# Invalid Usage\n\n< / > | Command: ${command.name}\n< / > | Usage: ${command.usage}\n< / > | MinArgs: ${command.minArgs}, MaxArgs: ${command.maxArgs}`
+              );
+            });
+          return message.reply(
+            `# Invalid Usage\n\n< / > | Command: ${command.name}\n< / > | Usage: ${command.usage}\n< / > | MinArgs: ${command.minArgs}, MaxArgs: ${command.maxArgs}`
+          );
+        }
+      } catch (error) {
+        console.error(
+          "Failed to load the config file or strictMode is missing:",
+          error
+        );
+      }
       if (!deleteCommandMessage)
         return command.execute(client, message, ...args);
       if (message.deletable) {
@@ -34,8 +59,8 @@ export default async function executeCommand(
         return command.execute(client, message, ...args);
       }
     } catch (error) {
-      console.log(
-        "Failed to load the config file or anonymousCommands is missing:",
+      console.error(
+        "Failed to load the config file or deleteCommandMessage is missing:",
         error
       );
     }

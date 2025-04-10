@@ -1,6 +1,8 @@
 {
-  "token": "",
+  "discordToken": "",
+  "exarotonToken": "",
   "prefix": [],
   "noPrefix": ,
-  "deleteCommandMessage": 
+  "deleteCommandMessage": ,
+  "strictMode:: 
 }

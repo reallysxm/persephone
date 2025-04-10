@@ -7,6 +7,9 @@ export default {
   name: "no-prefix",
   description: "Toggle no-prefix mode",
   usage: "<prefix>ping",
+  subCommands: {},
+  minArgs: 0,
+  maxArgs: 0,
   async execute(client: Client, message: Message) {
     const configFilePath: string = path.resolve(
       import.meta.dirname,

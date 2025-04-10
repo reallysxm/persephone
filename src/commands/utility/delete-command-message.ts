@@ -7,6 +7,9 @@ export default {
   name: "delete-command-message",
   description: "Toggle no-command message mode",
   usage: "<prefix>delete-command-message",
+  subCommands: {},
+  minArgs: 0,
+  MaxArgs: 0,
   async execute(client: Client, message: Message) {
     const configFilePath: string = path.resolve(
       import.meta.dirname,

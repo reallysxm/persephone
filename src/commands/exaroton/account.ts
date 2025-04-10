@@ -6,7 +6,10 @@ export default {
   name: "exaroton-account",
   description: "Get Exaroton account information",
   usage: "<prefix>exaroton-account",
-  async execute(client: Client, message: Message) {
+  subCommands: {},
+  minArgs: 1,
+  maxArgs: 0,
+  async execute(client: Client, message: Message, args: string[]) {
     try {
       interface ExarotonAccountResponse {
         data: {
@@ -21,10 +24,13 @@ export default {
         "../../config.json"
       );
       const URI: string = "https://api.exaroton.com/v1/account/";
-      const { exarotonApiKey, deleteCommandMessage } = await loadJson<{
-        exarotonApiKey: string;
-        deleteCommandMessage: boolean;
-      }>(configFilePath, new URL(import.meta.url));
+      const { exarotonApiKey, deleteCommandMessage, strictMode } =
+        await loadJson<{
+          exarotonApiKey: string;
+          deleteCommandMessage: boolean;
+          strictMode: boolean;
+        }>(configFilePath, new URL(import.meta.url));
+
       const res = await fetch(URI, {
         method: "GET",
         headers: {
